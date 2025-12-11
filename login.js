@@ -76,15 +76,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     const userRole = sessionStorage.getItem("userRole");
     const username = sessionStorage.getItem("username");
 
-    // Nếu có session trong sessionStorage, cho phép vào luôn
-    // Sẽ verify khi gọi API thực tế
+    // Nếu có session trong sessionStorage, verify với backend
     if (userRole === "admin" && username) {
-        // Có session, chuyển thẳng đến trang quản lý
-        showStudentManagement();
-        return;
+        try {
+            // Verify session với backend
+            const response = await apiService.getCurrentUser();
+            if (response.success) {
+                // Session hợp lệ, chuyển đến trang quản lý
+                showStudentManagement();
+                return;
+            }
+        } catch (error) {
+            // Session không hợp lệ, xóa sessionStorage và hiển thị login
+            console.log("Session expired, redirecting to login...");
+            sessionStorage.clear();
+        }
     }
 
-    // Chưa đăng nhập, hiển thị giao diện đăng nhập
+    // Chưa đăng nhập hoặc session hết hạn, hiển thị giao diện đăng nhập
     createLoginInterface();
 });
 

@@ -11,41 +11,43 @@ const LOCK_TIME = 15 * 60 * 1000; // 15 phút
 function checkLoginRateLimit(email) {
     const now = Date.now();
     const attempts = loginAttempts.get(email);
-    
+
     if (!attempts) return { allowed: true };
-    
+
     // Xóa lock nếu đã hết thời gian
     if (attempts.lockedUntil && now > attempts.lockedUntil) {
         loginAttempts.delete(email);
         return { allowed: true };
     }
-    
+
     // Đang bị khóa
     if (attempts.lockedUntil && now < attempts.lockedUntil) {
-        const remainingMinutes = Math.ceil((attempts.lockedUntil - now) / 60000);
+        const remainingMinutes = Math.ceil(
+            (attempts.lockedUntil - now) / 60000
+        );
         return { allowed: false, remainingMinutes };
     }
-    
+
     return { allowed: true };
 }
 
 function recordFailedLogin(email) {
     const now = Date.now();
     const attempts = loginAttempts.get(email) || { count: 0, lastAttempt: now };
-    
+
     // Reset nếu lần thử cuối > 15 phút trước
     if (now - attempts.lastAttempt > LOCK_TIME) {
         attempts.count = 0;
     }
-    
+
     attempts.count++;
     attempts.lastAttempt = now;
-    
+
     // Khóa nếu vượt quá số lần cho phép
     if (attempts.count >= MAX_ATTEMPTS) {
         attempts.lockedUntil = now + LOCK_TIME;
     }
-    
+
     loginAttempts.set(email, attempts);
 }
 

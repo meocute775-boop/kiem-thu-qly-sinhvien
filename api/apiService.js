@@ -28,11 +28,14 @@ class ApiService {
             const data = await response.json();
 
             if (!response.ok) {
-                // Nếu lỗi 401 (Unauthorized), xóa session và reload về login
+                // Nếu lỗi 401 (Unauthorized), xóa session và quay về login
                 if (response.status === 401) {
                     sessionStorage.clear();
-                    window.location.reload();
-                    return;
+                    // Chỉ reload nếu không phải đang ở trang login
+                    if (!document.getElementById("loginForm")) {
+                        window.location.reload();
+                    }
+                    throw new Error(data.message || "Vui lòng đăng nhập");
                 }
                 throw new Error(data.message || "Có lỗi xảy ra");
             }
