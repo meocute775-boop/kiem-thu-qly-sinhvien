@@ -896,11 +896,20 @@ async function saveStudentInfo(event, studentId) {
     const validDomains = [
         "gmail.com",
         "yahoo.com",
+        "yahoo.com.vn",
         "hotmail.com",
         "outlook.com",
+        "icloud.com",
+        "live.com",
+        "edu.vn",
+        "hcmus.edu.vn",
+        "uit.edu.vn",
+        "hcmut.edu.vn",
         "ulsa.edu.vn",
         "student.ulsa.edu.vn",
         "ulsa.edu.com",
+        "student.hcmus.edu.vn",
+        "mail.com",
     ];
     const isValidDomain = validDomains.some(
         (validDomain) =>

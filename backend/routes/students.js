@@ -8,11 +8,11 @@ function formatName(name) {
     return name
         .trim()
         .split(/\s+/)
-        .map(word => {
-            if (word.length === 0) return '';
+        .map((word) => {
+            if (word.length === 0) return "";
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
         })
-        .join(' ');
+        .join(" ");
 }
 
 // Middleware lấy userId từ session
@@ -21,8 +21,8 @@ const getUserId = (req, res, next) => {
     next();
 };
 
-// Tạm thời comment requireAuth để test
-// router.use(requireAuth);
+// Bảo mật: Yêu cầu đăng nhập để truy cập API
+router.use(requireAuth);
 router.use(getUserId);
 
 // GET /api/students - Lấy danh sách sinh viên (có phân trang, tìm kiếm, lọc)
@@ -261,7 +261,7 @@ router.post("/", async (req, res) => {
 
         // Format tên về dạng chữ cái đầu viết hoa
         const formattedName = formatName(fullName);
-        
+
         // Validate họ tên phải có ít nhất 2 từ
         const nameParts = formattedName.trim().split(/\s+/);
         if (nameParts.length < 2) {
@@ -474,7 +474,7 @@ router.post("/", async (req, res) => {
             data: {
                 id: result.insertId,
                 studentId,
-                fullName,
+                fullName: formattedName,
                 dateOfBirth,
                 gender,
                 email,
@@ -551,7 +551,7 @@ router.put("/:id", async (req, res) => {
 
         // Format tên về dạng chữ cái đầu viết hoa
         const formattedName = formatName(fullName);
-        
+
         // Validate họ tên phải có ít nhất 2 từ
         const nameParts = formattedName.trim().split(/\s+/);
         if (nameParts.length < 2) {

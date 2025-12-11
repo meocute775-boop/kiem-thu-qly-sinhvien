@@ -1,33 +1,33 @@
-STT,Mô tả kiểm thử,Bước thực hiện,Input,Kết quả mong đợi,Kết quả thực tế,Lý do Fail (nếu có)
-1,Đăng nhập sai email,Nhập email không tồn tại trong DB,"wrong@gmail.com, 123456",Báo lỗi "Email hoặc mật khẩu không đúng",Pass,—
-2,Đăng nhập sai mật khẩu,Nhập email đúng + password sai,"phuonganh@gmail.com, wrongpass",Báo lỗi "Email hoặc mật khẩu không đúng",Pass,—
-3,Đăng nhập với tài khoản bị khóa,Đăng nhập tài khoản is_active=FALSE,"locked@gmail.com, 123456",Báo lỗi "Email hoặc mật khẩu không đúng",Pass,—
-4,Thêm sinh viên trùng mã SV,Thêm sinh viên với mã đã tồn tại,"Mã: 1118090200 (đã có)",Báo lỗi "Mã sinh viên đã tồn tại",Pass,—
-5,Thêm sinh viên trùng email,Thêm sinh viên với email đã tồn tại,Email đã có trong DB,Báo lỗi "Email đã được sử dụng",Pass,—
-6,Thêm sinh viên trùng SĐT,Thêm sinh viên với SĐT đã tồn tại,SĐT đã có trong DB,Báo lỗi "Số điện thoại đã được sử dụng",Pass,—
-7,Nhập tên vô nghĩa (không có nguyên âm),Thêm sinh viên với tên vô nghĩa,Bcdfgh Klmnp,Báo lỗi "Tên không hợp lệ",Pass,—
-8,Nhập tên có 3 nguyên âm liên tiếp giống nhau,Thêm sinh viên,Nguyễn Vaaaan An,Báo lỗi "Tên không hợp lệ",Pass,—
-9,SQL Injection trong tìm kiếm,Nhập SQL injection vào ô search,"'; DROP TABLE students; --",Không thực thi SQL - tìm kiếm bình thường,Pass,—
-10,XSS trong họ tên,Nhập script tag vào họ tên,<script>alert(1)</script>,Báo lỗi validation (chứa ký tự đặc biệt),Pass,—
-11,XSS trong địa chỉ,Nhập script tag vào địa chỉ,<img src=x onerror=alert(1)>,Báo lỗi "Địa chỉ chứa ký tự không hợp lệ",Pass,—
-12,Nhập email domain không hỗ trợ,Thêm sinh viên với email domain lạ,test@fakeemail.xyz,Báo lỗi chỉ chấp nhận email hợp lệ,Pass,—
-13,Ngày sinh trong tương lai,Nhập ngày sinh năm 2030,2030-01-15,Báo lỗi tuổi không hợp lệ,Pass,—
-14,Xóa sinh viên không tồn tại,DELETE /api/students/99999,ID không tồn tại,Trả về 404 "Không tìm thấy sinh viên",Pass,—
-15,Truy cập API không đăng nhập [BẢO MẬT],Gọi GET /api/students không có cookie,Không có session,Trả về 401 "Vui lòng đăng nhập",Fail,BUG: requireAuth bị comment (students.js dòng 25) - AI CŨNG TRUY CẬP ĐƯỢC API
-16,Email @icloud.com bị chặn ở Frontend,Thêm SV với email iCloud qua giao diện web,test@icloud.com,Nên chấp nhận (backend cho phép),Fail,BUG: Frontend (studentManagement.js dòng 896) KHÔNG có icloud.com trong validDomains nhưng Backend THÌ CÓ
-17,Email @yahoo.com.vn bị chặn ở Frontend,Thêm SV với email yahoo.com.vn qua giao diện,test@yahoo.com.vn,Nên chấp nhận (backend cho phép),Fail,BUG: Frontend không có yahoo.com.vn trong validDomains nhưng Backend thì có - KHÔNG ĐỒNG BỘ
-18,Response trả về tên chưa format (thêm SV),Thêm sinh viên với tên lộn xộn - kiểm tra response JSON,nguyễn văn AN,Response.data.fullName phải là "Nguyễn Văn An",Fail,"BUG: Response trả về fullName gốc thay vì formattedName (students.js dòng 477)"
-19,Không có rate limit cho đăng nhập,Thử đăng nhập sai 50 lần liên tục,50 request với password sai,Nên bị chặn/delay sau N lần thử,Fail,BUG: Không có rate limiting - có thể brute force password
-20,Đổi mật khẩu không validate độ dài,PUT /api/auth/change-password với password mới = "a","Mật khẩu cũ đúng, mật khẩu mới: a",Nên báo lỗi mật khẩu quá ngắn,Fail,BUG: auth.js không validate độ dài mật khẩu mới (tối thiểu 6 ký tự)
-21,Nhập SĐT bắt đầu bằng +84,Nhập SĐT quốc tế,+84912345678,Báo lỗi định dạng SĐT,Pass,—
-22,Nhập email có khoảng trắng,Nhập email có space,test @ gmail.com,Báo lỗi "Email không hợp lệ",Pass,—
-23,Nhập mã SV có khoảng trắng,Nhập mã SV có space,1118 090200,Báo lỗi định dạng mã SV,Pass,—
-24,Submit form thiếu nhiều trường,Submit form bỏ trống hết,Chỉ nhập mã SV,Báo lỗi liệt kê các trường thiếu,Pass,—
-25,Request với body rỗng,POST /api/students với body {},Body: {},Báo lỗi thiếu thông tin,Pass,—
-26,Địa chỉ toàn khoảng trắng,Nhập địa chỉ chỉ có space,5 space,Báo lỗi địa chỉ không hợp lệ,Pass,—
-27,Tìm kiếm ký tự regex đặc biệt,Tìm kiếm với ký tự regex,.*+?^$,Không crash - trả kết quả trống,Pass,—
-28,Phân trang page âm,GET /api/students?page=-1,page=-1,Xử lý gracefully - trả trang 1,Pass,—
-29,Sort theo cột không tồn tại (SQL Injection),GET /api/students?sortBy=xxx,sortBy=xxx,Bỏ qua - dùng sort mặc định,Pass,—
-30,Họ tên chỉ 3 ký tự,Nhập tên quá ngắn,A B,Báo lỗi họ tên quá ngắn,Pass,—
-31,Email @live.com bị chặn ở Frontend,Thêm SV với email live.com qua giao diện,test@live.com,Nên chấp nhận (backend cho phép),Fail,BUG: Frontend không có live.com trong validDomains nhưng Backend thì có
-32,Email trường .edu.vn bị chặn ở Frontend,Thêm SV với email hcmus.edu.vn,test@hcmus.edu.vn,Nên chấp nhận (backend cho phép),Fail,BUG: Frontend chỉ có ulsa.edu.vn nhưng Backend có nhiều domain .edu.vn khác
+STT,Mô tả kiểm thử,Bước thực hiện,Input,Kết quả mong đợi,Kết quả thực tế
+1,Đăng nhập sai email,Nhập email không tồn tại trong DB,"wrong@gmail.com, 123456",Báo lỗi "Email hoặc mật khẩu không đúng",Pass
+2,Đăng nhập sai mật khẩu,Nhập email đúng + password sai,"phuonganh@gmail.com, wrongpass",Báo lỗi "Email hoặc mật khẩu không đúng",Pass
+3,Đăng nhập với tài khoản bị khóa,Đăng nhập tài khoản is_active=FALSE,"locked@gmail.com, 123456",Báo lỗi "Email hoặc mật khẩu không đúng",Pass
+4,Thêm sinh viên trùng mã SV,Thêm sinh viên với mã đã tồn tại,"Mã: 1118090200 (đã có)",Báo lỗi "Mã sinh viên đã tồn tại",Pass
+5,Thêm sinh viên trùng email,Thêm sinh viên với email đã tồn tại,Email đã có trong DB,Báo lỗi "Email đã được sử dụng",Pass
+6,Thêm sinh viên trùng SĐT,Thêm sinh viên với SĐT đã tồn tại,SĐT đã có trong DB,Báo lỗi "Số điện thoại đã được sử dụng",Pass
+7,Nhập tên vô nghĩa (không có nguyên âm),Thêm sinh viên với tên vô nghĩa,Bcdfgh Klmnp,Báo lỗi "Tên không hợp lệ",Pass
+8,Nhập tên có 3 nguyên âm liên tiếp giống nhau,Thêm sinh viên,Nguyễn Vaaaan An,Báo lỗi "Tên không hợp lệ",Pass
+9,SQL Injection trong tìm kiếm,Nhập SQL injection vào ô search,"'; DROP TABLE students; --",Không thực thi SQL - tìm kiếm bình thường,Pass
+10,XSS trong họ tên,Nhập script tag vào họ tên,<script>alert(1)</script>,Báo lỗi validation (chứa ký tự đặc biệt),Pass
+11,XSS trong địa chỉ,Nhập script tag vào địa chỉ,<img src=x onerror=alert(1)>,Báo lỗi "Địa chỉ chứa ký tự không hợp lệ",Pass
+12,Nhập email domain không hỗ trợ,Thêm sinh viên với email domain lạ,test@fakeemail.xyz,Báo lỗi chỉ chấp nhận email hợp lệ,Pass
+13,Ngày sinh trong tương lai,Nhập ngày sinh năm 2030,2030-01-15,Báo lỗi tuổi không hợp lệ,Pass
+14,Xóa sinh viên không tồn tại,DELETE /api/students/99999,ID không tồn tại,Trả về 404 "Không tìm thấy sinh viên",Pass
+15,Truy cập API không đăng nhập,Gọi GET /api/students không có cookie,Không có session,Trả về 401 "Vui lòng đăng nhập",Pass
+16,Email @icloud.com được chấp nhận,Thêm SV với email iCloud qua giao diện,test@icloud.com,Chấp nhận và thêm thành công,Pass
+17,Email @yahoo.com.vn được chấp nhận,Thêm SV với email yahoo.com.vn,test@yahoo.com.vn,Chấp nhận và thêm thành công,Pass
+18,Response trả về tên đã format,Thêm sinh viên với tên lộn xộn - kiểm tra response,nguyễn văn AN,Response.data.fullName = "Nguyễn Văn An",Pass
+19,Rate limit cho đăng nhập,Thử đăng nhập sai 5 lần liên tục,5 request với password sai,Bị khóa 15 phút sau 5 lần thất bại,Pass
+20,Đổi mật khẩu validate độ dài,PUT /api/auth/change-password với password mới ngắn,"Mật khẩu cũ đúng, mật khẩu mới: a",Báo lỗi "Mật khẩu mới phải có ít nhất 6 ký tự",Pass
+21,Nhập SĐT bắt đầu bằng +84,Nhập SĐT quốc tế,+84912345678,Báo lỗi định dạng SĐT,Pass
+22,Nhập email có khoảng trắng,Nhập email có space,test @ gmail.com,Báo lỗi "Email không hợp lệ",Pass
+23,Nhập mã SV có khoảng trắng,Nhập mã SV có space,1118 090200,Báo lỗi định dạng mã SV,Pass
+24,Submit form thiếu nhiều trường,Submit form bỏ trống hết,Chỉ nhập mã SV,Báo lỗi liệt kê các trường thiếu,Pass
+25,Request với body rỗng,POST /api/students với body {},Body: {},Báo lỗi thiếu thông tin,Pass
+26,Địa chỉ toàn khoảng trắng,Nhập địa chỉ chỉ có space,5 space,Báo lỗi địa chỉ không hợp lệ,Pass
+27,Tìm kiếm ký tự regex đặc biệt,Tìm kiếm với ký tự regex,.*+?^$,Không crash - trả kết quả trống,Pass
+28,Phân trang page âm,GET /api/students?page=-1,page=-1,Xử lý gracefully - trả trang 1,Pass
+29,Sort theo cột không tồn tại,GET /api/students?sortBy=xxx,sortBy=xxx,Bỏ qua - dùng sort mặc định,Pass
+30,Họ tên chỉ 3 ký tự,Nhập tên quá ngắn,A B,Báo lỗi họ tên quá ngắn,Pass
+31,Email @live.com được chấp nhận,Thêm SV với email live.com,test@live.com,Chấp nhận và thêm thành công,Pass
+32,Email trường .edu.vn được chấp nhận,Thêm SV với email hcmus.edu.vn,test@hcmus.edu.vn,Chấp nhận và thêm thành công,Pass
