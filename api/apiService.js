@@ -1,15 +1,7 @@
 // API Service - Kết nối với Backend
 
 // ============ CONFIGURATION ============
-// Để dùng NGROK: Uncomment dòng dưới và paste URL ngrok của bạn
-const NGROK_URL =
-    "https://heterotrichous-groundable-elliott.ngrok-free.dev/api";
-
-// Để dùng LOCAL: Comment dòng NGROK_URL ở trên
-// const LOCAL_URL = "http://localhost:3000/api";
-
-// Auto-detect: Ưu tiên NGROK nếu có, không thì dùng LOCAL
-const API_BASE_URL = typeof NGROK_URL !== "undefined" ? NGROK_URL : LOCAL_URL;
+const API_BASE_URL = "http://localhost:3000/api";
 // ========================================
 
 console.log("🔗 API Base URL:", API_BASE_URL);
