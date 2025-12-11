@@ -3,6 +3,18 @@ const router = express.Router();
 const db = require("../config/database");
 const { requireAuth } = require("./auth");
 
+// Hàm format tên: Chữ cái đầu mỗi từ viết hoa
+function formatName(name) {
+    return name
+        .trim()
+        .split(/\s+/)
+        .map(word => {
+            if (word.length === 0) return '';
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
+        .join(' ');
+}
+
 // Middleware lấy userId từ session
 const getUserId = (req, res, next) => {
     req.userId = req.session.userId;
@@ -247,8 +259,11 @@ router.post("/", async (req, res) => {
             });
         }
 
+        // Format tên về dạng chữ cái đầu viết hoa
+        const formattedName = formatName(fullName);
+        
         // Validate họ tên phải có ít nhất 2 từ
-        const nameParts = fullName.trim().split(/\s+/);
+        const nameParts = formattedName.trim().split(/\s+/);
         if (nameParts.length < 2) {
             return res.status(400).json({
                 success: false,
@@ -440,7 +455,7 @@ router.post("/", async (req, res) => {
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 studentId,
-                fullName,
+                formattedName,
                 dateOfBirth,
                 gender,
                 email,
@@ -534,8 +549,11 @@ router.put("/:id", async (req, res) => {
             });
         }
 
+        // Format tên về dạng chữ cái đầu viết hoa
+        const formattedName = formatName(fullName);
+        
         // Validate họ tên phải có ít nhất 2 từ
-        const nameParts = fullName.trim().split(/\s+/);
+        const nameParts = formattedName.trim().split(/\s+/);
         if (nameParts.length < 2) {
             return res.status(400).json({
                 success: false,
@@ -699,7 +717,7 @@ router.put("/:id", async (req, res) => {
              WHERE id = ?`,
             [
                 studentId,
-                fullName,
+                formattedName,
                 dateOfBirth,
                 gender,
                 email,
@@ -718,7 +736,7 @@ router.put("/:id", async (req, res) => {
             data: {
                 id: studentDbId,
                 studentId,
-                fullName,
+                fullName: formattedName,
                 dateOfBirth,
                 gender,
                 email,
