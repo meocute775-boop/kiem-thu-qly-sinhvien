@@ -9,9 +9,6 @@ const studentRoutes = require("./routes/students");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files (Frontend)
-app.use(express.static("public"));
-
 // Middleware
 // CORS configuration - Support both local and ngrok
 const allowedOrigins = [
