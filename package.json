@@ -1,0 +1,18 @@
+{
+    "name": "student-management-system",
+    "version": "1.0.0",
+    "description": "Hệ thống quản lý sinh viên - Full stack application",
+    "scripts": {
+        "start": "cd backend && npm start",
+        "dev": "cd backend && npm run dev",
+        "backend": "cd backend && npm start",
+        "install-backend": "cd backend && npm install"
+    },
+    "keywords": [
+        "student",
+        "management",
+        "fullstack"
+    ],
+    "author": "",
+    "license": "ISC"
+}
