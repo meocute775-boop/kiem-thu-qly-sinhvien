@@ -1,0 +1,19 @@
+STT,Mô tả kiểm thử,Bước thực hiện,Input,Kết quả mong đợi,Kết quả thực tế
+1,Kiểm tra tiêu đề trang đăng nhập,Mở trang index.html,—,Hiển thị tiêu đề "Đăng nhập hệ thống" rõ ràng,Pass
+2,Kiểm tra form đăng nhập hiển thị đầy đủ,Mở trang đăng nhập,—,"Form có: Dropdown vai trò, Input Username/Email, Input Mật khẩu, Nút Đăng nhập",Pass
+3,Kiểm tra tiêu đề trang quản lý sinh viên,Đăng nhập thành công → Vào trang chính,—,Hiển thị tiêu đề "Quản Lý Sinh Viên" và "Xin chào [Tên user]",Pass
+4,Kiểm tra các cột trong bảng danh sách,Xem bảng danh sách sinh viên,—,"Hiển thị đúng các cột: Mã SV, Họ tên, Giới tính, Lớp, Khoa, Trạng thái, Thao tác",Pass
+5,Kiểm tra các nút chức năng toolbar,"Quan sát thanh công cụ phía trên bảng",—,"Hiển thị đủ: Thêm sinh viên, Làm mới, Nhập Excel, Xuất Excel, Ô tìm kiếm, Bộ lọc",Pass
+6,Kiểm tra hiển thị trạng thái sinh viên,Xem cột Trạng thái trong bảng,—,"Trạng thái hiển thị dạng badge màu: Đang học (xanh), Thôi học (đỏ), Bảo lưu (vàng), Tốt nghiệp (tím)",Pass
+7,Kiểm tra modal thêm sinh viên,Click nút "Thêm sinh viên",—,"Modal hiển thị với đầy đủ các trường: Mã SV, Họ tên, Ngày sinh, Giới tính, Email, SĐT, Địa chỉ, Lớp, Khoa, Trạng thái",Pass
+8,Kiểm tra modal xem chi tiết sinh viên,Click nút "Xem chi tiết" của 1 sinh viên,—,Modal hiển thị đầy đủ thông tin sinh viên và có nút Sửa/Đóng,Pass
+9,Kiểm tra responsive trên mobile,Thu nhỏ màn hình < 768px,—,"Giao diện co giãn phù hợp, bảng cuộn ngang, các nút vẫn hiển thị",Pass
+10,Kiểm tra nút Đăng xuất,Quan sát góc phải header,—,Nút "Đăng xuất" hiển thị rõ ràng màu đỏ,Pass
+11,Kiểm tra hiển thị Toast notification,Thực hiện 1 thao tác (thêm/sửa/xóa),—,"Toast xuất hiện góc phải trên, tự động ẩn sau 3 giây",Pass
+12,Kiểm tra dropdown Giới tính,Click dropdown Giới tính trong form,—,"Hiển thị 2 lựa chọn: Nam, Nữ",Pass
+13,Kiểm tra dropdown Trạng thái,Click dropdown Trạng thái trong form,—,"Hiển thị 4 lựa chọn: Đang học, Thôi học, Bảo lưu, Tốt nghiệp",Pass
+14,Kiểm tra placeholder các input,Quan sát các input trong form,—,"Các input có placeholder hướng dẫn: VD: phuonganh@gmail.com, 0912345678...",Pass
+15,Kiểm tra phân trang,Xem phần cuối bảng,—,"Hiển thị pagination: Trang trước, số trang, Trang sau",Pass
+16,Kiểm tra confirm dialog khi xóa,Click nút Xóa sinh viên,—,"Hiển thị dialog xác nhận với 2 nút: Hủy, Xác nhận xóa",Pass
+17,Kiểm tra icon trong các nút,Quan sát các nút chức năng,—,"Các nút có icon tương ứng: + (thêm), ↻ (làm mới), 📥 (nhập), 📤 (xuất)",Pass
+18,Kiểm tra hover effect trên bảng,Di chuột qua các dòng trong bảng,—,Dòng được hover có màu nền thay đổi (highlight),Pass

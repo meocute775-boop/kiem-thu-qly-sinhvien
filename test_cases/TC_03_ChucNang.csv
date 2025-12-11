@@ -1,0 +1,27 @@
+STT,Mô tả kiểm thử,Bước thực hiện,Input,Kết quả mong đợi,Kết quả thực tế
+1,Đăng nhập Admin thành công,"Nhập email/password đúng, click Đăng nhập","phuonganh@gmail.com, 123456","Đăng nhập thành công, chuyển trang quản lý, hiển thị ""Xin chào [Tên]""",Pass
+2,Đăng xuất thành công,Click nút Đăng xuất,—,"Đăng xuất, quay về trang đăng nhập",Pass
+3,Thêm sinh viên mới thành công,"Điền đầy đủ thông tin hợp lệ, click Lưu","Mã: 1118090250, Tên: Trần Văn Test, Email: tranvan@gmail.com, SĐT: 0987654321","Thêm thành công, hiển thị toast ""Thêm sinh viên thành công"", sinh viên xuất hiện trong danh sách",Pass
+4,Sửa thông tin sinh viên thành công,"Click Xem chi tiết → Sửa → Thay đổi họ tên → Lưu","Đổi tên: Trần Văn Mới","Cập nhật thành công, hiển thị toast, tên mới hiển thị trong danh sách",Pass
+5,Xóa sinh viên thành công,"Click Xóa → Xác nhận xóa",—,"Xóa thành công, sinh viên biến mất khỏi danh sách, hiển thị toast",Pass
+6,Tìm kiếm theo mã sinh viên,Nhập mã SV vào ô tìm kiếm,1118090204,Hiển thị sinh viên có mã 1118090204,Pass
+7,Tìm kiếm theo tên sinh viên,Nhập tên vào ô tìm kiếm,Ngọc Mai,Hiển thị sinh viên có tên chứa "Ngọc Mai",Pass
+8,Tìm kiếm theo email,Nhập email vào ô tìm kiếm,@gmail.com,Hiển thị tất cả sinh viên có email Gmail,Pass
+9,Tìm kiếm theo SĐT,Nhập SĐT vào ô tìm kiếm,0912345,Hiển thị sinh viên có SĐT chứa "0912345",Pass
+10,Tìm kiếm không có kết quả,Nhập từ khóa không tồn tại,xyz123abc,"Hiển thị ""Không có sinh viên nào"" hoặc bảng trống",Pass
+11,Lọc theo Khoa,Chọn 1 khoa từ dropdown bộ lọc,Hệ thống thông tin,Chỉ hiển thị sinh viên thuộc khoa HTTT,Pass
+12,Lọc theo Giới tính,Chọn giới tính từ dropdown,Nữ,Chỉ hiển thị sinh viên Nữ,Pass
+13,Lọc theo Trạng thái,Chọn trạng thái từ dropdown,Đang học,Chỉ hiển thị sinh viên đang học,Pass
+14,Kết hợp nhiều bộ lọc,"Chọn Khoa + Giới tính + Trạng thái","HTTT, Nam, Đang học",Hiển thị sinh viên thỏa tất cả điều kiện,Pass
+15,Xóa bộ lọc,Click nút Bỏ lọc / Reset,—,Hiển thị lại toàn bộ danh sách sinh viên,Pass
+16,Làm mới danh sách,Click nút Làm mới,—,"Tải lại danh sách từ server, xóa các filter/search",Pass
+17,Xuất Excel,Click nút Xuất Excel,—,Tải file Excel chứa danh sách sinh viên hiện tại,Pass
+18,Nhập Excel thành công,Click Nhập Excel → Chọn file Excel hợp lệ,File Excel có 5 sinh viên mới,"Import thành công, hiển thị toast, sinh viên mới xuất hiện",Pass
+19,Phân trang - Chuyển trang tiếp theo,Click nút Trang sau (>),—,Hiển thị trang 2 của danh sách,Pass
+20,Phân trang - Chuyển về trang trước,Click nút Trang trước (<),—,Hiển thị trang trước đó,Pass
+21,Phân trang - Click số trang cụ thể,Click vào số trang 3,—,Hiển thị trang 3 của danh sách,Pass
+22,Thay đổi số lượng hiển thị mỗi trang,Chọn hiển thị 20 sinh viên/trang,20,Hiển thị 20 sinh viên trên 1 trang,Pass
+23,Session duy trì khi refresh,Đăng nhập → Refresh trang (F5),—,"Vẫn ở trang quản lý, không bị đăng xuất",Pass
+24,Xem chi tiết sinh viên,Click nút Xem chi tiết,—,"Modal hiển thị đầy đủ: Mã, Tên, Ngày sinh, Giới tính, Email, SĐT, Địa chỉ, Lớp, Khoa, Trạng thái",Pass
+25,Format tên tự động khi thêm sinh viên,Thêm sinh viên với tên viết hoa/thường lộn xộn,ngUYỄN văN tÂN,"Lưu thành công với tên ""Nguyễn Văn Tân""",Pass
+26,Format tên tự động khi sửa sinh viên,Sửa sinh viên với tên viết sai format,võ NGỌC mai,"Lưu thành công với tên ""Võ Ngọc Mai""",Pass

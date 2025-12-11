@@ -1,0 +1,31 @@
+STT,Mô tả kiểm thử,Bước thực hiện,Input,Kết quả mong đợi,Kết quả thực tế,Lý do Fail (nếu có)
+1,Đăng nhập sai email,Nhập email không tồn tại trong DB,"wrong@gmail.com, 123456",Báo lỗi "Email hoặc mật khẩu không đúng",Pass,—
+2,Đăng nhập sai mật khẩu,Nhập email đúng + password sai,"phuonganh@gmail.com, wrongpass",Báo lỗi "Email hoặc mật khẩu không đúng",Pass,—
+3,Đăng nhập với tài khoản bị khóa,Đăng nhập tài khoản is_active=FALSE,"locked@gmail.com, 123456",Báo lỗi "Email hoặc mật khẩu không đúng",Pass,—
+4,Thêm sinh viên trùng mã SV,Thêm sinh viên với mã đã tồn tại,"Mã: 1118090200 (đã có), tên khác",Báo lỗi "Mã sinh viên đã tồn tại",Pass,—
+5,Thêm sinh viên trùng email,Thêm sinh viên với email đã tồn tại,"Email: existing@gmail.com (đã có)",Báo lỗi "Email đã được sử dụng",Pass,—
+6,Thêm sinh viên trùng SĐT,Thêm sinh viên với SĐT đã tồn tại,"SĐT: 0912345678 (đã có)",Báo lỗi "Số điện thoại đã được sử dụng",Pass,—
+7,Nhập tên vô nghĩa (chuỗi ngẫu nhiên),Thêm sinh viên với tên vô nghĩa,Bcdfgh Klmnp,"Báo lỗi ""Tên không hợp lệ"" (thiếu nguyên âm)",Pass,—
+8,Nhập tên có 3 nguyên âm giống nhau liên tiếp,Thêm sinh viên với tên có aaaa,Nguyễn Vaaaan An,Báo lỗi "Tên không hợp lệ",Pass,—
+9,SQL Injection trong tìm kiếm,Nhập SQL injection vào ô search,"'; DROP TABLE students; --","Không thực thi SQL, chỉ tìm kiếm bình thường hoặc không có kết quả",Pass,—
+10,SQL Injection trong form thêm sinh viên,Nhập SQL injection vào họ tên,"Nguyễn'; DELETE FROM students;--",Báo lỗi validation hoặc escape đúng cách không thực thi,Pass,—
+11,XSS trong họ tên,Nhập script tag vào họ tên,<script>alert('XSS')</script>,"Báo lỗi validation (chứa ký tự đặc biệt) hoặc escape, không thực thi script",Pass,—
+12,XSS trong địa chỉ,Nhập script tag vào địa chỉ,<img src=x onerror=alert('XSS')>,"Báo lỗi ""Địa chỉ chứa ký tự không hợp lệ""",Pass,—
+13,Nhập email với domain giả mạo,Thêm sinh viên với email domain lạ,test@fakeemail.xyz,"Báo lỗi ""Chỉ chấp nhận email của Gmail, Yahoo, Outlook...""",Pass,—
+14,Thêm sinh viên với ngày sinh trong tương lai,Nhập ngày sinh năm 2030,2030-01-15,Báo lỗi "Tuổi sinh viên phải từ 16 đến 50",Pass,—
+15,Sửa sinh viên thành mã SV đã tồn tại,Sửa mã SV thành mã của sinh viên khác,1118090200 → 1118090201 (đã có),Báo lỗi "Mã sinh viên đã tồn tại",Pass,—
+16,Sửa email thành email đã tồn tại,Sửa email thành email của sinh viên khác,existing@gmail.com (đã có),Báo lỗi "Email đã được sử dụng",Pass,—
+17,Xóa sinh viên không tồn tại,Gọi API xóa với ID không có,DELETE /api/students/99999,Trả về 404 "Không tìm thấy sinh viên",Pass,—
+18,Truy cập API không có session,Gọi API students mà không đăng nhập,GET /api/students (không có cookie),Trả về 401 "Vui lòng đăng nhập",Fail,Hiện tại requireAuth đang bị comment để test
+19,Nhập file Excel sai định dạng,Nhập file .txt thay vì .xlsx,file.txt,Báo lỗi "File không hợp lệ" hoặc không xử lý,Pass,—
+20,Nhập file Excel có dữ liệu sai,Nhập Excel có mã SV sai format,Excel với mã: ABC123,"Báo lỗi validation, bỏ qua dòng sai hoặc thông báo cụ thể",Pass,—
+21,Nhập SĐT có ký tự đặc biệt,Nhập SĐT có dấu +,+84912345678,Báo lỗi "Số điện thoại phải có 10-11 chữ số và bắt đầu bằng 0",Pass,—
+22,Nhập email có khoảng trắng,Nhập email có space,test @ gmail.com,Báo lỗi "Email không hợp lệ",Pass,—
+23,Nhập mã SV có khoảng trắng,Nhập mã SV có space,1118 090200,Báo lỗi "Mã sinh viên phải có định dạng 111809XXXX",Pass,—
+24,Thêm sinh viên thiếu nhiều trường bắt buộc,Submit form với nhiều trường trống,"Chỉ nhập Mã SV, bỏ trống hết","Báo lỗi liệt kê các trường thiếu: Họ tên, Ngày sinh, Email...",Pass,—
+25,Request với body rỗng,Gửi POST /api/students với body {},{},"Báo lỗi ""Thiếu thông tin: Mã SV, Họ tên, Ngày sinh...""",Pass,—
+26,Nhập địa chỉ toàn khoảng trắng,Nhập địa chỉ chỉ có space,"     ",Báo lỗi "Địa chỉ phải có ít nhất 5 ký tự" hoặc "Thiếu thông tin",Pass,—
+27,Tìm kiếm với ký tự đặc biệt,Tìm kiếm với ký tự regex,.*+?^${}[]|,"Không crash, trả về kết quả trống hoặc tìm kiếm literal",Pass,—
+28,Phân trang với page không hợp lệ,Gọi API với page=-1 hoặc page=abc,GET /api/students?page=-1,"Xử lý gracefully, trả về trang 1 hoặc báo lỗi",Pass,—
+29,Sắp xếp với cột không tồn tại,Gọi API với sortBy=invalid_column,GET /api/students?sortBy=xxx,"Bỏ qua, dùng sort mặc định (created_at) để tránh SQL injection",Pass,—
+30,Nhập họ tên chỉ có 1 ký tự,Nhập tên quá ngắn,A B,Báo lỗi "Họ tên quá ngắn",Pass,—

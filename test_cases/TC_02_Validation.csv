@@ -1,0 +1,34 @@
+STT,Mô tả kiểm thử,Bước thực hiện,Input,Kết quả mong đợi,Kết quả thực tế
+1,Validate mã SV đúng định dạng,Nhập mã SV và submit,1118090210,"Chấp nhận, không báo lỗi",Pass
+2,Validate mã SV sai định dạng (không đủ số),Nhập mã SV sai và submit,11180902,Báo lỗi "Mã sinh viên phải có định dạng 111809XXXX",Pass
+3,Validate mã SV sai prefix,Nhập mã SV sai prefix,1234560001,Báo lỗi "Mã sinh viên phải có định dạng 111809XXXX",Pass
+4,Validate mã SV chứa chữ cái,Nhập mã SV có chữ,111809ABCD,Báo lỗi "Mã sinh viên phải có định dạng 111809XXXX",Pass
+5,Validate họ tên hợp lệ,Nhập họ tên đầy đủ,Nguyễn Văn An,"Chấp nhận, format thành Nguyễn Văn An",Pass
+6,Validate họ tên chỉ có 1 từ,Nhập họ tên 1 từ,Nguyễn,Báo lỗi "Họ tên phải có ít nhất 2 từ",Pass
+7,Validate họ tên chứa số,Nhập họ tên có số,Nguyễn Văn 123,Báo lỗi "Họ tên không được chứa số hoặc ký tự đặc biệt",Pass
+8,Validate họ tên chứa ký tự đặc biệt,Nhập họ tên có ký tự đặc biệt,Nguyễn Văn @An,Báo lỗi "Họ tên không được chứa số hoặc ký tự đặc biệt",Pass
+9,Validate họ tên quá ngắn,Nhập họ tên < 5 ký tự,An B,Báo lỗi "Họ tên quá ngắn",Pass
+10,Validate format tên tự động,Nhập tên không đúng format,ngUYỄN tẤN pHáT,"Tự động format thành ""Nguyễn Tấn Phát""",Pass
+11,Validate email Gmail hợp lệ,Nhập email Gmail,test@gmail.com,"Chấp nhận, không báo lỗi",Pass
+12,Validate email iCloud hợp lệ,Nhập email iCloud,test@icloud.com,"Chấp nhận, không báo lỗi",Pass
+13,Validate email trường học hợp lệ,Nhập email edu,sv@student.ulsa.edu.vn,"Chấp nhận, không báo lỗi",Pass
+14,Validate email domain không hỗ trợ,Nhập email domain lạ,test@xyz.com,"Báo lỗi ""Chỉ chấp nhận email của Gmail, Yahoo, Outlook...""",Pass
+15,Validate email thiếu @,Nhập email không có @,testgmail.com,Báo lỗi "Email không hợp lệ",Pass
+16,Validate email thiếu domain,Nhập email không có domain,test@,Báo lỗi "Email không hợp lệ",Pass
+17,Validate SĐT hợp lệ (10 số),Nhập SĐT 10 số,0912345678,"Chấp nhận, không báo lỗi",Pass
+18,Validate SĐT hợp lệ (11 số),Nhập SĐT 11 số,09123456789,"Chấp nhận, không báo lỗi",Pass
+19,Validate SĐT không bắt đầu bằng 0,Nhập SĐT không có số 0 đầu,1234567890,Báo lỗi "Số điện thoại phải bắt đầu bằng 0",Pass
+20,Validate SĐT có chữ cái,Nhập SĐT có chữ,091234567a,Báo lỗi "Số điện thoại phải có 10-11 chữ số",Pass
+21,Validate SĐT quá ngắn,Nhập SĐT < 10 số,091234567,Báo lỗi "Số điện thoại phải có 10-11 chữ số",Pass
+22,Validate ngày sinh hợp lệ (tuổi 16-50),Nhập ngày sinh 20 tuổi,2005-01-15,"Chấp nhận, không báo lỗi",Pass
+23,Validate ngày sinh quá trẻ (< 16 tuổi),Nhập ngày sinh 10 tuổi,2015-01-15,Báo lỗi "Tuổi sinh viên phải từ 16 đến 50",Pass
+24,Validate ngày sinh quá lớn (> 50 tuổi),Nhập ngày sinh 55 tuổi,1970-01-15,Báo lỗi "Tuổi sinh viên phải từ 16 đến 50",Pass
+25,Validate lớp hợp lệ,Nhập tên lớp,HTTT-K17,"Chấp nhận, không báo lỗi",Pass
+26,Validate lớp có ký tự đặc biệt,Nhập lớp có ký tự lạ,HTTT@K17,Báo lỗi "Lớp chỉ được chứa chữ số và dấu gạch ngang",Pass
+27,Validate địa chỉ hợp lệ,Nhập địa chỉ đầy đủ,"123 Nguyễn Văn Cừ, Q5, HCM","Chấp nhận, không báo lỗi",Pass
+28,Validate địa chỉ quá ngắn,Nhập địa chỉ < 5 ký tự,HCM,Báo lỗi "Địa chỉ phải có ít nhất 5 ký tự",Pass
+29,Validate địa chỉ có ký tự không hợp lệ,Nhập địa chỉ có ký tự lạ,123 ABC @#$,Báo lỗi "Địa chỉ chứa ký tự không hợp lệ",Pass
+30,Validate trường bắt buộc - để trống mã SV,Để trống mã SV và submit,(trống),Báo lỗi "Thiếu thông tin: Mã SV",Pass
+31,Validate trường bắt buộc - để trống nhiều trường,Để trống nhiều trường,(trống),"Báo lỗi ""Thiếu thông tin: Mã SV, Họ tên, Email...""",Pass
+32,Validate đăng nhập - email trống,Submit form đăng nhập không có email,(trống),Báo lỗi "Email và mật khẩu là bắt buộc",Pass
+33,Validate đăng nhập - mật khẩu trống,Submit form đăng nhập không có password,(trống),Báo lỗi "Email và mật khẩu là bắt buộc",Pass
